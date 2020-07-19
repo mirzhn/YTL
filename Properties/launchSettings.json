@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "YTL": {
+      "commandName": "Project",
+      "commandLineArgs": "\\type=\"issue\"  \\filter=\"project: {DWH Core}, {DWH Support}\""
+    }
+  }
+}
