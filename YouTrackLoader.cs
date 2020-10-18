@@ -36,13 +36,16 @@ namespace YTL
             return workItems;
         }
 
-        public YouTrackSharp.TimeTracking.WorkItem getWorkItemsForIssueList(ICollection<YouTrackSharp.Issues.Issue>)
+        public async Task<List<WorkItemIssue>> getWorkItemsForIssueList(ICollection<YouTrackSharp.Issues.Issue> issues)
         {
-            YouTrackSharp.TimeTracking.WorkItem rrrl;
-            return rrrl;
+            List <WorkItemIssue> workItems = new List<WorkItemIssue>();
 
-
-
+            foreach (YouTrackSharp.Issues.Issue issue in issues)
+            {
+                WorkItemIssue workItemIssue = new WorkItemIssue(issue.Id, this.getWorkItems(issue.Id).Result);
+                workItems.Add(workItemIssue);
+            }
+            return workItems;
         }
 
     }

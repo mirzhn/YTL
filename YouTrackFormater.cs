@@ -60,6 +60,31 @@ namespace YTL
             return UserStorySprintList;
         }
 
+        public static List<string[]> getUserStoryWorkItemList(List<WorkItemIssue> WorkItemIssues)
+        {
+            List<string[]> UserStoryWorkItemList = new List<string[]>();
+            UserStoryWorkItemList.Add(new string[] { "UserStory", "WorkItemId", "Date", "Created", "Author", "DurationlMinutes" });
+
+            foreach (WorkItemIssue WorkItemIssue in WorkItemIssues)
+            {
+                var UserStory = WorkItemIssue.IssueId;
+
+                foreach (YouTrackSharp.TimeTracking.WorkItem WorkItem in WorkItemIssue.WorkItems)
+                {
+                    UserStoryWorkItemList.Add(new string[] { 
+                        UserStory, 
+                        WorkItem.Id, 
+                        WorkItem.Date.Value.ToString(), 
+                        WorkItem.Created.Value.ToString(),
+                        WorkItem.Author.Login,
+                        WorkItem.Duration.TotalMinutes.ToString()
+
+                    });
+                }
+            }
+            return UserStoryWorkItemList;
+        }
+
         public static List<string[]> getUserStoryLinkList(ICollection<YouTrackSharp.Issues.Issue> Issues)
         {
             List<string[]> UserStoryLinkList = new List<string[]>();
@@ -134,4 +159,6 @@ namespace YTL
             return UserStoryList;
         }
     }
+
+   
 }
