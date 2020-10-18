@@ -26,22 +26,16 @@ namespace YTL
                 case "issue":
                     var issues = loader.getIssues(param.Filter).Result;
 
-                    //var issues2 = issues.Where(x => x.Fields.Equals(x.Fields.Where(y => y.Value.ToString() == "S15")));
-                    var WorkItems = loader.getWorkItemsForIssueList(issues).Result;
-
-
-                    List<string[]> USWorkItemList = YouTrackFormater.getUserStoryWorkItemList(WorkItems);
                     List<string[]> USTagList = YouTrackFormater.getUserStoryTagList(issues);
                     List<string[]> USSprintList = YouTrackFormater.getUserStorySprintList(issues);
                     List<string[]> USLinkList = YouTrackFormater.getUserStoryLinkList(issues);
                     List<string[]> USList = YouTrackFormater.getUserStoryList(issues);
 
-                    
-
                     CsvExporter.saveToCsv(setting.path + @"\" + @"USTag_" + Now + ".csv", USTagList);
                     CsvExporter.saveToCsv(setting.path + @"\" + @"USSprint_" + Now + ".csv", USSprintList);
                     CsvExporter.saveToCsv(setting.path + @"\" + @"USLink_" + Now + ".csv", USLinkList);
                     CsvExporter.saveToCsv(setting.path + @"\" + @"Issue_" + Now + ".csv", USList);
+
                     break;
 
                 case "project":
@@ -50,6 +44,17 @@ namespace YTL
                     List<string[]> ProjectList = YouTrackFormater.getProjectList(projects);
 
                     CsvExporter.saveToCsv(setting.path + @"\" + @"Project" + Now + ".csv", ProjectList);
+
+                    break;
+
+                case "workItem":
+                    var WorkItemIssues = loader.getIssues(param.Filter).Result;
+                    var WorkItems = loader.getWorkItemsForIssueList(WorkItemIssues).Result;
+
+                    List<string[]> USWorkItemList = YouTrackFormater.getUserStoryWorkItemList(WorkItems);
+
+                    CsvExporter.saveToCsv(setting.path + @"\" + @"USWorkItemList_" + Now + ".csv", USWorkItemList);
+
                     break;
             }
         }
