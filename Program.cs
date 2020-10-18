@@ -26,6 +26,8 @@ namespace YTL
                 case "issue":
                     var issues = loader.getIssues(param.Filter).Result;
 
+
+
                     List<string[]> USTagList = YouTrackFormater.getUserStoryTagList(issues);
                     List<string[]> USSprintList = YouTrackFormater.getUserStorySprintList(issues);
                     List<string[]> USLinkList = YouTrackFormater.getUserStoryLinkList(issues);

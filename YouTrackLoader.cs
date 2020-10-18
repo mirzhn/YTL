@@ -29,5 +29,21 @@ namespace YTL
             return issues;
         }
 
+        public async Task<IEnumerable<YouTrackSharp.TimeTracking.WorkItem>> getWorkItems(string issue)
+        {
+            var timeTrackingService = this.connection.CreateTimeTrackingService();
+            var workItems = await timeTrackingService.GetWorkItemsForIssue(issue);
+            return workItems;
+        }
+
+        public YouTrackSharp.TimeTracking.WorkItem getWorkItemsForIssueList(ICollection<YouTrackSharp.Issues.Issue>)
+        {
+            YouTrackSharp.TimeTracking.WorkItem rrrl;
+            return rrrl;
+
+
+
+        }
+
     }
 }
