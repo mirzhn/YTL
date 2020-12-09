@@ -26,15 +26,19 @@ namespace YTL
                 case "issue":
                     var issues = loader.getIssues(param.Filter).Result;
 
+                    
                     List<string[]> USTagList = YouTrackFormater.getUserStoryTagList(issues);
                     List<string[]> USSprintList = YouTrackFormater.getUserStorySprintList(issues);
                     List<string[]> USLinkList = YouTrackFormater.getUserStoryLinkList(issues);
                     List<string[]> USList = YouTrackFormater.getUserStoryList(issues);
+                    List<string[]> USPBRparticipantList = YouTrackFormater.getUserStoryPBRparticipantList(issues);
+
 
                     CsvExporter.saveToCsv(setting.path + @"\" + @"USTag_" + Now + ".csv", USTagList);
                     CsvExporter.saveToCsv(setting.path + @"\" + @"USSprint_" + Now + ".csv", USSprintList);
                     CsvExporter.saveToCsv(setting.path + @"\" + @"USLink_" + Now + ".csv", USLinkList);
                     CsvExporter.saveToCsv(setting.path + @"\" + @"Issue_" + Now + ".csv", USList);
+                    CsvExporter.saveToCsv(setting.path + @"\" + @"USPBRparticipantList_" + Now + ".csv", USPBRparticipantList);
 
                     break;
 

@@ -60,6 +60,25 @@ namespace YTL
             return UserStorySprintList;
         }
 
+        public static List<string[]> getUserStoryPBRparticipantList(ICollection<YouTrackSharp.Issues.Issue> Issues)
+        {
+            List<string[]> UserStoryPBRparticipantList = new List<string[]>();
+            UserStoryPBRparticipantList.Add(new string[] { "UserStory", "PBRparticipant" });
+
+            foreach (YouTrackSharp.Issues.Issue issue in Issues)
+            {
+                var PBRparticipants = issue.Fields.Where(x => x.Name == "PBR participants").Select(x => x.Value);
+                foreach (JArray PBRparticipant in PBRparticipants)
+                {
+                    foreach (var current in PBRparticipant)
+                    {
+                        UserStoryPBRparticipantList.Add(new string[] { issue.Id, current["value"].ToString() });
+                    }
+                }
+            }
+            return UserStoryPBRparticipantList;
+        }
+
         public static List<string[]> getUserStoryWorkItemList(List<WorkItemIssue> WorkItemIssues)
         {
             List<string[]> UserStoryWorkItemList = new List<string[]>();
@@ -108,11 +127,11 @@ namespace YTL
             }
             return UserStoryLinkList;
         }
-
-        public static List<string[]> getUserStoryList(ICollection<YouTrackSharp.Issues.Issue> Issues)
+       
+            public static List<string[]> getUserStoryList(ICollection<YouTrackSharp.Issues.Issue> Issues)
         {
             List<string[]> UserStoryList = new List<string[]>();
-            UserStoryList.Add(new string[] { "UserStory", "Summary", "projectShortName", "Assignee", "State", "SpentTime", "Estimation", "Type", "StoryPoint", "Version" });
+            UserStoryList.Add(new string[] { "UserStory", "Summary", "projectShortName", "Assignee", "State", "SpentTime", "Estimation", "Type", "StoryPoint", "Version", "PBRItem" });
 
             string SpentTime;
             string FullName;
@@ -122,6 +141,7 @@ namespace YTL
             string Type;
             string StoryPoint;
             string Version;
+            string PBRItem;
 
             foreach (YouTrackSharp.Issues.Issue issue in Issues)
             {
@@ -153,8 +173,13 @@ namespace YTL
                     FullName = ((List<YouTrackSharp.Issues.Assignee>)issue.Fields.Where(x => x.Name == "Assignee").Select(x => x.Value).First()).First().FullName;
                 else
                     FullName = "";
+                if (issue.Fields.Where(x => x.Name == "PBR item").Select(x => x.Value).Any())
+                    PBRItem = ((List<string>)issue.Fields.Where(x => x.Name == "PBR item").Select(x => x.Value).FirstOrDefault()).FirstOrDefault();
+                else
+                    PBRItem = "";
 
-                UserStoryList.Add(new string[] { issue.Id, issue.Summary, projectShortName, FullName, State, SpentTime, Estimation, Type, StoryPoint, Version });
+
+                UserStoryList.Add(new string[] { issue.Id, issue.Summary, projectShortName, FullName, State, SpentTime, Estimation, Type, StoryPoint, Version, PBRItem });
             }
             return UserStoryList;
         }
