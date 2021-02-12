@@ -37,7 +37,7 @@ namespace YTL
                     CsvExporter.saveToCsv(setting.path + @"\" + @"Sprint_" + Now + ".csv", USSprintList);
                     CsvExporter.saveToCsv(setting.path + @"\" + @"Link_" + Now + ".csv", USLinkList);
                     CsvExporter.saveToCsv(setting.path + @"\" + @"Issue_" + Now + ".csv", USList);
-                    CsvExporter.saveToCsv(setting.path + @"\" + @"PBRparticipant_" + Now + ".csv", USPBRparticipantList);
+                    CsvExporter.saveToCsv(setting.path + @"\" + @"PBRParticipant_" + Now + ".csv", USPBRparticipantList);
 
                     break;
 
