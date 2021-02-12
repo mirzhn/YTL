@@ -14,7 +14,6 @@ namespace YTL
         {
             Param param = ParamReader.getParam(args);
 
-            
             Setting setting = SettingImporter.getSettingFromXML(AppDomain.CurrentDomain.BaseDirectory + @"\Setting.xml");
 
             YouTrackLoader loader = new YouTrackLoader(setting.url, setting.token);
@@ -34,11 +33,11 @@ namespace YTL
                     List<string[]> USPBRparticipantList = YouTrackFormater.getUserStoryPBRparticipantList(issues);
 
 
-                    CsvExporter.saveToCsv(setting.path + @"\" + @"USTag_" + Now + ".csv", USTagList);
-                    CsvExporter.saveToCsv(setting.path + @"\" + @"USSprint_" + Now + ".csv", USSprintList);
-                    CsvExporter.saveToCsv(setting.path + @"\" + @"USLink_" + Now + ".csv", USLinkList);
+                    CsvExporter.saveToCsv(setting.path + @"\" + @"Tag_" + Now + ".csv", USTagList);
+                    CsvExporter.saveToCsv(setting.path + @"\" + @"Sprint_" + Now + ".csv", USSprintList);
+                    CsvExporter.saveToCsv(setting.path + @"\" + @"Link_" + Now + ".csv", USLinkList);
                     CsvExporter.saveToCsv(setting.path + @"\" + @"Issue_" + Now + ".csv", USList);
-                    CsvExporter.saveToCsv(setting.path + @"\" + @"USPBRparticipantList_" + Now + ".csv", USPBRparticipantList);
+                    CsvExporter.saveToCsv(setting.path + @"\" + @"PBRparticipantList_" + Now + ".csv", USPBRparticipantList);
 
                     break;
 
