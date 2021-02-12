@@ -56,7 +56,7 @@ namespace YTL
 
                     List<string[]> USWorkItemList = YouTrackFormater.getUserStoryWorkItemList(WorkItems);
 
-                    CsvExporter.saveToCsv(setting.path + @"\" + @"WorkItemList_" + Now + ".csv", USWorkItemList);
+                    CsvExporter.saveToCsv(setting.path + @"\" + @"WorkItem_" + Now + ".csv", USWorkItemList);
 
                     break;
             }
