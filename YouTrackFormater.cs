@@ -11,6 +11,7 @@ namespace YTL
 
     static class YouTrackFormater
     {
+        
         public static List<string[]> getProjectList(ICollection<YouTrackSharp.Projects.Project> projects)
         {
             List<string[]> ProjectList = new List<string[]>();
@@ -130,8 +131,11 @@ namespace YTL
        
             public static List<string[]> getUserStoryList(ICollection<YouTrackSharp.Issues.Issue> Issues)
         {
+
+            DateTime StartDate = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+
             List<string[]> UserStoryList = new List<string[]>();
-            UserStoryList.Add(new string[] { "UserStory", "Summary", "projectShortName", "Assignee", "State", "SpentTime", "Estimation", "Type", "StoryPoint", "Version", "PBRItem" });
+            UserStoryList.Add(new string[] { "UserStory", "Summary", "projectShortName", "Assignee", "State", "SpentTime", "Estimation", "Type", "StoryPoint", "Version", "PBRItem", "Created", "Resolved" });
 
             string SpentTime;
             string FullName;
@@ -142,6 +146,8 @@ namespace YTL
             string StoryPoint;
             string Version;
             string PBRItem;
+            string Created;
+            string Resolved;
 
             foreach (YouTrackSharp.Issues.Issue issue in Issues)
             {
@@ -149,6 +155,14 @@ namespace YTL
                 projectShortName = issue.Fields.Where(x => x.Name == "projectShortName").Select(x => x.Value).First().ToString();
                 State = ((List<string>)issue.Fields.Where(x => x.Name == "State").Select(x => x.Value).First()).First();
                 Type = ((List<string>)issue.Fields.Where(x => x.Name == "Type").Select(x => x.Value).First()).First();
+
+
+                Created = StartDate.AddMilliseconds(Convert.ToDouble(issue.Fields.Where(x => x.Name == "created").Select(x => x.Value).First().ToString())).ToString();
+
+                if (issue.Fields.Where(x => x.Name == "resolved").Select(x => x.Value).Any())
+                    Resolved = StartDate.AddMilliseconds(Convert.ToDouble(issue.Fields.Where(x => x.Name == "resolved").Select(x => x.Value).First().ToString())).ToString();
+                else
+                    Resolved = "";
 
                 if (issue.Fields.Where(x => x.Name == "Story points").Select(x => x.Value).Any())
                     StoryPoint = ((List<string>)issue.Fields.Where(x => x.Name == "Story points").Select(x => x.Value).FirstOrDefault()).FirstOrDefault();
@@ -178,8 +192,7 @@ namespace YTL
                 else
                     PBRItem = "";
 
-
-                UserStoryList.Add(new string[] { issue.Id, issue.Summary, projectShortName, FullName, State, SpentTime, Estimation, Type, StoryPoint, Version, PBRItem });
+                UserStoryList.Add(new string[] { issue.Id, issue.Summary, projectShortName, FullName, State, SpentTime, Estimation, Type, StoryPoint, Version, PBRItem, Created, Resolved });
             }
             return UserStoryList;
         }
